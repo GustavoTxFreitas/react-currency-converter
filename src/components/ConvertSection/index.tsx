@@ -12,15 +12,15 @@ type CurrencyList = {
 export function ConvertSection() {
     const [amount, setAmount] = useState(0);
     const [result, setResult] = useState(0);
-    const [baseCode, setBaseCode] = useState("");
-    const [resultCode, setResultCode] = useState("");
+    const [currencyRates, setCurrencyRates] = useState([]);
+    const [currencyCodes, setCurrencyCodes] = useState(["", ""]);
     const [currencyList, setCurrencyList] = useState<CurrencyList[]>([]);
 
 
     useEffect(() => {
-        async function getCurrencies() {
+        async function getCurrencyList() {
             const response = await api.get('/latest/currencies.min.json');
-            const currencies = response.data;
+            const currencies: CurrencyList = response.data;
 
             const currencyQueue: CurrencyList[] = [];
 
@@ -28,54 +28,80 @@ export function ConvertSection() {
                 currencyQueue.push({ value, label });
             });
 
-            setCurrencyList(currencyQueue);
+            setCurrencyList(currencyQueue.sort());
         }
 
-        getCurrencies();
+        getCurrencyList();
     }, []);
 
 
-    async function convert() {
-        const response = await api.get(`/latest/currencies/${baseCode}/${resultCode}.json`);
-        const rate = response.data[resultCode];
+    useEffect(() => {
+        async function getCurrencyRates(from: string) {
+            if (from) {
+                const response = await api.get(`/latest/currencies/${from}.min.json`)
+                const rates = response.data;
 
-        setResult(amount * rate);
-        alert(result);
+                setCurrencyRates(rates[from]);
+            }
+        }
+
+        getCurrencyRates(currencyCodes[0]);
+
+    }, [currencyCodes[0]]);
+
+
+    function convert(to: any) {
+        if (amount > 0 && currencyRates) {
+            const rate = currencyRates[to];
+
+            setResult(amount * rate);
+        }
     }
 
     return (
-        <section id="convertSection">
-            <h2>Currency Converter App</h2>
+        <section id="convertSection" className={styles.convertSection}>
+            <h2>Currency converter app</h2>
+            
+            <div className={styles.cardContainer}>
+                
+                <div className={styles.dropdownContainer}>
+                    <small>From: </small>
+                    <Dropdown
+                        options={currencyList}
+                        value={currencyList[0]}
+                        className={styles.dropdown}
+                        placeholder="Select a currency unit"
+                        onChange={e => setCurrencyCodes(prevState => [e.value, prevState[1]])}
+                    />
 
-            <div className="amountInput">
-                <label htmlFor="amount">Enter the amount coins</label>
-                <input
-                    type="text"
-                    name="amount"
-                    id="amount"
-                    onChange={e => setAmount(parseFloat(e.target.value))} />
+                    <small>To: </small>
+                    <Dropdown
+                        options={currencyList}
+                        value={currencyList[1]}
+                        className={styles.dropdown}
+                        placeholder="Select a currency unit"
+                        onChange={e => setCurrencyCodes(prevState => [prevState[0], e.value])}
+                    />
+                </div>
+                
+                <div className={styles.inputContainer}>
+                    <label htmlFor="amount">Enter the amount coins</label>
+                    <input
+                        type="text"
+                        name="amount"
+                        id="amount"
+                        placeholder="e.g.: 11,01"
+                        onChange={e => setAmount(parseFloat(e.target.value))} />
+
+                    <div className={styles.resultContainer}>
+                        <small>Result:</small>
+                        {result}
+                    </div>
+                </div>
+
             </div>
 
-            <div className="dropdownContainer">
-                <small>From: </small>
-                <Dropdown
-                    options={currencyList}
-                    placeholder="Select a currency unit"
-                    onChange={e => setBaseCode(e.value)}
-                />
-            </div>
-
-
-            <div className="dropdownContainer">
-                <small>To: </small>
-                <Dropdown
-                    options={currencyList}
-                    placeholder="Select a currency unit"
-                    onChange={e => setResultCode(e.value)}
-                />
-            </div>
-
-            <button onClick={() => convert()}>Convert</button>
+            <button onClick={() => convert(currencyCodes[1])}>Convert</button>
         </section>
     )
 }
