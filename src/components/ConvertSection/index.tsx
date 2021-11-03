@@ -5,104 +5,103 @@ import { api } from "../../services/api";
 import styles from "./styles.module.scss";
 
 type CurrencyList = {
-	value: string;
-	label: string;
+    value: string;
+    label: string;
 }
 
 export function ConvertSection() {
-	const [amount, setAmount] = useState(0);
-	const [result, setResult] = useState(0);
-	const [currencyRates, setCurrencyRates] = useState(null);
-	const [currencyCodes, setCurrencyCodes] = useState(["", ""]);
-	const [currencyList, setCurrencyList] = useState<CurrencyList[]>([]);
+    const [amount, setAmount] = useState(0);
+    const [result, setResult] = useState(0);
+    const [currencyRates, setCurrencyRates] = useState([]);
+    const [currencyCodes, setCurrencyCodes] = useState(["", ""]);
+    const [currencyList, setCurrencyList] = useState<CurrencyList[]>([]);
 
 
-	useEffect(() => {
-		async function getCurrencyList() {
-			const response = await api.get('/latest/currencies.min.json');
-			const currencies: CurrencyList = response.data;
+    useEffect(() => {
+        async function getCurrencyList() {
+            const response = await api.get('/latest/currencies.min.json');
+            const currencies: CurrencyList = response.data;
 
-			const currencyQueue: CurrencyList[] = [];
+            const currencyQueue: CurrencyList[] = [];
 
-			Object.entries(currencies).forEach(([value, label]) => {
-				currencyQueue.push({ value, label });
-			});
+            Object.entries(currencies).forEach(([value, label]) => {
+                currencyQueue.push({ value, label });
+            });
 
-			setCurrencyList(currencyQueue.sort());
-		}
+            setCurrencyList(currencyQueue.sort());
+        }
 
-		getCurrencyList();
-	}, []);
-
-
-	useEffect(() => {
-		async function getCurrencyRates(from: string) {
-			if (from) {
-				const response = await api.get(`/latest/currencies/${from}.min.json`)
-				const rates = response.data;
-
-				setCurrencyRates(rates[from]);
-			}
-		}
-
-		getCurrencyRates(currencyCodes[0]);
-
-	}, [currencyCodes[0]]);
+        getCurrencyList();
+    }, []);
 
 
-	function convert(to: any) {
-		if (amount > 0 && currencyRates) {
-			const rate = currencyRates[to];
+    useEffect(() => {
+        async function getCurrencyRates(from: string) {
+            if (from) {
+                const response = await api.get(`/latest/currencies/${from}.min.json`)
+                const rates = response.data;
 
-			setResult(amount * rate);
-		}
-	}
+                setCurrencyRates(rates[from]);
+            }
+        }
 
-	return (
-		<section id="convertSection" className={styles.convertSection}>
-			<h2>Currency converter app</h2>
+        getCurrencyRates(currencyCodes[0]);
 
-			<div className={styles.cardContainer}>
+    }, [currencyCodes[0]]);
 
-				<div className={styles.card}>
-					<small>From: </small>
-					<Dropdown
-						options={currencyList}
-						className={styles.dropdown}
-						placeholder="Select a currency unit"
-						onChange={e => setCurrencyCodes(prevState => [e.value, prevState[1]])}
-					/>
 
-					<small>To: </small>
-					<Dropdown
-						options={currencyList}
-						className={styles.dropdown}
-						placeholder="Select a currency unit"
-						onChange={e => setCurrencyCodes(prevState => [prevState[0], e.value])}
-					/>
-				</div>
+    function convert(to: any) {
+        if (amount > 0 && currencyRates) {
+            const rate = currencyRates[to];
 
-				<div className={styles.card}>
-					<label htmlFor="amount">Enter the amount coins</label>
-					<input
-						type="text"
-						name="amount"
-						id="amount"
-						className={styles.input}
-						placeholder="e.g.: 11,01"
-						onChange={e => setAmount(parseFloat(e.target.value))} />
+            setResult(amount * rate);
+        }
+    }
 
-					<div className={styles.resultContainer}>
-						<small>Result:</small>
-						{result}
-					</div>
+    return (
+        <section id="convertSection" className={styles.convertSection}>
+            <h2>Currency converter app</h2>
+            
+            <div className={styles.cardContainer}>
+                
+                <div className={styles.dropdownContainer}>
+                    <small>From: </small>
+                    <Dropdown
+                        options={currencyList}
+                        value={currencyList[0]}
+                        className={styles.dropdown}
+                        placeholder="Select a currency unit"
+                        onChange={e => setCurrencyCodes(prevState => [e.value, prevState[1]])}
+                    />
 
-				<button className={styles.convertButton} onClick={() => convert(currencyCodes[1])}>
-					Convert
-				</button>
-				</div>
-			</div>
+                    <small>To: </small>
+                    <Dropdown
+                        options={currencyList}
+                        value={currencyList[1]}
+                        className={styles.dropdown}
+                        placeholder="Select a currency unit"
+                        onChange={e => setCurrencyCodes(prevState => [prevState[0], e.value])}
+                    />
+                </div>
+                
+                <div className={styles.inputContainer}>
+                    <label htmlFor="amount">Enter the amount coins</label>
+                    <input
+                        type="text"
+                        name="amount"
+                        id="amount"
+                        placeholder="e.g.: 11,01"
+                        onChange={e => setAmount(parseFloat(e.target.value))} />
 
-		</section>
-	)
+                    <div className={styles.resultContainer}>
+                        <small>Result:</small>
+                        {result}
+                    </div>
+                </div>
+
+            </div>
+
+            <button onClick={() => convert(currencyCodes[1])}>Convert</button>
+        </section>
+    )
 }

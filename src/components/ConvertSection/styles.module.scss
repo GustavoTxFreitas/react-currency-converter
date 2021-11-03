@@ -1,69 +1,47 @@
 .convertSection {
-	width: 95vw;
-	margin: 0 auto;
-	margin: 1em 0 4em;
+    width: 97vw;
+    margin: 0 auto;
+    margin-top: 1em;
 
-	h2 {
-		font-size: 2.6em;
-		font-weight: 800;
-		margin-left: 0.8em;
-		margin-bottom: 0.6em;
-	}
+    h2 {
+        font-size: 2.6em;
+        font-weight: 800;
+        margin-bottom: 1em;
+    }
 
-	.convertButton {
-		padding: 1em 0;
-		font-size: 1em;
-		margin-top: 2em;
-		color: #121212;
-		border-radius: 0.3em;
-		width: min(30%, 20em);
-		transition: filter 0.2s;
-
-		&:hover {
-			cursor: pointer;
-			filter: brightness(0.7);
-		}
-	}
+    .cardContainer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
-.cardContainer {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	margin: 2em 0;
+.inputContainer,
+.dropdownContainer {
+    padding: 2em;
+    margin-bottom: 2em;
+    border-radius: 0.3em;
+    width: min(100%, 25em);
+    background-color: royalblue;
 
-	.card {
-		min-height: 35vh;
-		flex-grow: 1;
-		padding: 2em;
-		margin: 0 2em;
-		margin-bottom: 2em;
-		border-radius: 0.3em;
-		width: min(100%, 25em);
-		background-color: #1d1d1d;
+    input,
+    .dropdown {
+        width: 80%;
+        padding: 1em;
+        color: #fdfff5;
+        margin-bottom: 1em;
+        border-radius: 0.3em;
+        background-color: rgb(21, 47, 126);
+    }
+}
 
-		.input,
-		.dropdown {
-			width: 90%;
-			padding: 1em;
-			color: #fdfff5;
-			margin-bottom: 2em;
-			border-radius: 0.3em;
-			background-color: #121212;
-		}
+.inputContainer {
+    label {
+        display: block;
+        margin-bottom: 0.4em;
+    }
 
-		label {
-			display: block;
-			margin-bottom: 0.4em;
-		}
-
-		.resultContainer {
-			margin-top: 0.6em;
-			font-size: 1.2em;
-
-			small {
-				margin-right: 1em;
-			}
-		}
-	}
+    .resultContainer {
+        font-size: 1.2em;
+    }
 }
