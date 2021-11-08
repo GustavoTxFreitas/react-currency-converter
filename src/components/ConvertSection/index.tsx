@@ -69,7 +69,9 @@ export function ConvertSection() {
 					<Dropdown
 						options={currencyList}
 						className={styles.dropdown}
+						menuClassName={styles.dropdownMenu}
 						placeholder="Select a currency unit"
+						controlClassName={styles.dropdownControl}
 						onChange={e => setCurrencyCodes(prevState => [e.value, prevState[1]])}
 					/>
 
@@ -77,7 +79,9 @@ export function ConvertSection() {
 					<Dropdown
 						options={currencyList}
 						className={styles.dropdown}
+						menuClassName={styles.dropdownMenu}
 						placeholder="Select a currency unit"
+						controlClassName={styles.dropdownControl}
 						onChange={e => setCurrencyCodes(prevState => [prevState[0], e.value])}
 					/>
 				</div>
@@ -97,9 +101,9 @@ export function ConvertSection() {
 						{result}
 					</div>
 
-				<button className={styles.convertButton} onClick={() => convert(currencyCodes[1])}>
-					Convert
-				</button>
+					<button className={styles.convertButton} onClick={() => convert(currencyCodes[1])}>
+						Convert
+					</button>
 				</div>
 			</div>
 
