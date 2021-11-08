@@ -36,7 +36,7 @@ header {
 
     li {
         height: 100%;
-        margin-left: 1em;
+        margin-left: 1.6em;
         list-style: none;
         text-align: center;
         transition: filter 0.2s;
@@ -44,8 +44,6 @@ header {
         a {
             display: flex;
             color: #fdfff5;
-            padding: 0.6em 1em;
-
             align-items: center;
             text-decoration: none;
             font: 700 1.2em "Manrope", sans-serif;
@@ -60,8 +58,9 @@ header {
 
     li:last-child {
         cursor: pointer;
+        padding: 0.8em 1.2em;
         border-radius: 0.2em;
-        background-color: #5a03bb;
+        background-color: #1d1d1d;
     }
 
     li:hover {
