@@ -1,7 +1,17 @@
+import { Header } from "./components/Header";
+import { ConvertSection } from "./components/ConvertSection";
+import { AboutMe } from "./components/AboutMe";
+import { RatesSection } from "./components/RatesSection";
+import { Footer } from "./components/Footer";
+
 export function App() {
   return (
-    <div className="App">
-      <h1>Hello World!</h1>
-    </div>
+    <main className="App">
+      <Header />
+      <ConvertSection />
+      <AboutMe />
+      <RatesSection />
+      <Footer />
+    </main>
   )
 }

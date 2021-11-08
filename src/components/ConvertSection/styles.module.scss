@@ -1,0 +1,47 @@
+.convertSection {
+    width: 97vw;
+    margin: 0 auto;
+    margin-top: 1em;
+
+    h2 {
+        font-size: 2.6em;
+        font-weight: 800;
+        margin-bottom: 1em;
+    }
+
+    .cardContainer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.inputContainer,
+.dropdownContainer {
+    padding: 2em;
+    margin-bottom: 2em;
+    border-radius: 0.3em;
+    width: min(100%, 25em);
+    background-color: royalblue;
+
+    input,
+    .dropdown {
+        width: 80%;
+        padding: 1em;
+        color: #fdfff5;
+        margin-bottom: 1em;
+        border-radius: 0.3em;
+        background-color: rgb(21, 47, 126);
+    }
+}
+
+.inputContainer {
+    label {
+        display: block;
+        margin-bottom: 0.4em;
+    }
+
+    .resultContainer {
+        font-size: 1.2em;
+    }
+}
