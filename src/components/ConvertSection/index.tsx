@@ -87,7 +87,10 @@ export function ConvertSection() {
 				</div>
 
 				<div className={styles.card}>
-					<label htmlFor="amount">Enter the amount coins</label>
+					<label htmlFor="amount">
+						Enter the amount coins
+						<sub> ({currencyCodes[0]})</sub>
+					</label>
 					<input
 						type="text"
 						name="amount"
@@ -98,7 +101,7 @@ export function ConvertSection() {
 
 					<div className={styles.resultContainer}>
 						<small>Result:</small>
-						{result}
+						{result}<sub>({currencyCodes[1]})</sub>
 					</div>
 
 					<button className={styles.convertButton} onClick={() => convert(currencyCodes[1])}>

@@ -1,0 +1,25 @@
+.aboutMe {
+  color: #121212;
+  background-color: #fff;
+
+  &Container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 3em 2em;
+
+    display: grid;
+    column-gap: 4em;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &Image {
+    // border-radius: 3em;
+    width: auto;
+    max-height: 40em;
+    clip-path: url("#svgBlob");
+  }
+  
+  clipPath{
+    transform: scale(50%) translate(150%, 320%);
+  }
+}
