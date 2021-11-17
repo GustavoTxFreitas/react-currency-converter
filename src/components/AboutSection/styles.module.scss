@@ -3,23 +3,39 @@
   background-color: #fff;
 
   &Container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+
     margin: 0 auto;
-    max-width: 1200px;
     padding: 3em 2em;
 
-    display: grid;
-    column-gap: 4em;
-    grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+    width: min(95vw, 1200px);
   }
 
-  &Image {
-    // border-radius: 3em;
-    width: auto;
-    max-height: 40em;
-    clip-path: url("#svgBlob");
+  &Lead {
+    h2 {
+      font-size: 1.8em;
+    }
+
+    p {
+      max-width: 500px;
+      margin: 0.8em 0 3em;
+    }
+
+    a {
+      color: #121212;
+      transition: filter 0.2s;
+
+      &:hover {
+        filter: opacity(0.7);
+      }
+    }
   }
-  
-  clipPath{
-    transform: scale(50%) translate(150%, 320%);
+
+  &Img {
+    border-radius: 0.3em;
   }
 }
