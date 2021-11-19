@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Dropdown from "react-dropdown"
 
 import { api } from "../../services/api";
 import styles from "./styles.module.scss";
+import { CurrenciesContext } from "../../context/currencies";
 
 type CurrencyList = {
 	value: string;
@@ -14,25 +15,26 @@ export function ConvertSection() {
 	const [result, setResult] = useState(0);
 	const [currencyRates, setCurrencyRates] = useState(null);
 	const [currencyCodes, setCurrencyCodes] = useState(["", ""]);
-	const [currencyList, setCurrencyList] = useState<CurrencyList[]>([]);
+	
+	const currencyList = useContext(CurrenciesContext);
 
 
-	useEffect(() => {
-		async function getCurrencyList() {
-			const response = await api.get('/latest/currencies.min.json');
-			const currencies: CurrencyList = response.data;
+	// useEffect(() => {
+	// 	async function getCurrencyList() {
+	// 		const response = await api.get('/latest/currencies.min.json');
+	// 		const currencies: CurrencyList = response.data;
 
-			const currencyQueue: CurrencyList[] = [];
+	// 		const currencyQueue: CurrencyList[] = [];
 
-			Object.entries(currencies).forEach(([value, label]) => {
-				currencyQueue.push({ value, label });
-			});
+	// 		Object.entries(currencies).forEach(([value, label]) => {
+	// 			currencyQueue.push({ value, label });
+	// 		});
 
-			setCurrencyList(currencyQueue.sort());
-		}
+	// 		setCurrencyList(currencyQueue.sort());
+	// 	}
 
-		getCurrencyList();
-	}, []);
+	// 	getCurrencyList();
+	// }, []);
 
 
 	useEffect(() => {
@@ -96,7 +98,7 @@ export function ConvertSection() {
 						name="amount"
 						id="amount"
 						className={styles.input}
-						placeholder="e.g.: 11,01"
+						placeholder="e.g.: 11.01"
 						onChange={e => setAmount(parseFloat(e.target.value))} />
 
 					<div className={styles.resultContainer}>
