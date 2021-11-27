@@ -17,12 +17,10 @@ export function CurrencyProvider(props: CurrencyProvider) {
 
   useEffect(() => {
     async function getCurrencyList() {
-      const response = await api.get('/latest/currencies.min.json');
-      const currencies: CurrencyList = response.data;
-
+      const { data } = await api.get<CurrencyList>('/latest/currencies.min.json');
       const currencyQueue: CurrencyList[] = [];
 
-      Object.entries(currencies).forEach(([value, label]) => {
+      Object.entries(data).forEach(([value, label]) => {
         currencyQueue.push({ value, label });
       });
 
@@ -35,7 +33,7 @@ export function CurrencyProvider(props: CurrencyProvider) {
 
 
   return (
-    <CurrenciesContext.Provider value={ currencyList }>
+    <CurrenciesContext.Provider value={currencyList}>
       {props.children}
     </CurrenciesContext.Provider>
   )

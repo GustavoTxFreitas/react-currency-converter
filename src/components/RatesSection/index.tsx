@@ -10,11 +10,12 @@ export function RatesSection() {
         <section id="ratesSection">
             <h2>A beautiful data!</h2>
             <table>
+                <caption>Currency valorization</caption>
                 <thead>
                     <tr>
-                        <th>Sigla</th>
-                        <th>Nome</th>
-                        <th>Valorização</th>
+                        <th>Abbreviation</th>
+                        <th>Currency Name</th>
+                        <th>Values</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +25,7 @@ export function RatesSection() {
                                 <tr key={data.value}>
                                     <td>{data.value}</td>
                                     <td>{data.label}</td>
-                                    <td>xxx</td>
+                                    <td>Coming soon</td>
                                 </tr>
                             );
                         })
