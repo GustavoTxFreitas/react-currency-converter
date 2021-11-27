@@ -1,6 +1,6 @@
 import { Header } from "./components/Header";
 import { ConvertSection } from "./components/ConvertSection";
-import { AboutMe } from "./components/AboutMe";
+import { AboutSection } from "./components/AboutSection";
 import { RatesSection } from "./components/RatesSection";
 import { Footer } from "./components/Footer";
 
@@ -9,7 +9,7 @@ export function App() {
     <main className="App">
       <Header />
       <ConvertSection />
-      <AboutMe />
+      <AboutSection />
       <RatesSection />
       <Footer />
     </main>

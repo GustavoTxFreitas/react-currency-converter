@@ -1,47 +1,92 @@
 .convertSection {
-    width: 97vw;
-    margin: 0 auto;
-    margin-top: 1em;
+	padding: 2em;
+	margin: 0 auto;
+	width: min(95vw, 1200px);
+	
+	h2 {
+		font-size: 2.6em;
+		font-weight: 800;
+	}
 
-    h2 {
-        font-size: 2.6em;
-        font-weight: 800;
-        margin-bottom: 1em;
-    }
+	.convertButton {
+		padding: 1em 0;
+		font-size: 0.8em;
+		font-weight: 700;
+		color: #121212;
+		border-radius: 0.3em;
+		width: min(30%, 20em);
+		transition: filter 0.2s;
 
-    .cardContainer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+		&:hover {
+			cursor: pointer;
+			filter: brightness(0.7);
+		}
+	}
 }
 
-.inputContainer,
-.dropdownContainer {
-    padding: 2em;
-    margin-bottom: 2em;
-    border-radius: 0.3em;
-    width: min(100%, 25em);
-    background-color: royalblue;
+.cardContainer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
 
-    input,
-    .dropdown {
-        width: 80%;
-        padding: 1em;
-        color: #fdfff5;
-        margin-bottom: 1em;
-        border-radius: 0.3em;
-        background-color: rgb(21, 47, 126);
-    }
-}
+	margin: 2em 0;
 
-.inputContainer {
-    label {
-        display: block;
-        margin-bottom: 0.4em;
-    }
+	.card {
+		flex-grow: 1;
+		min-height: 45vh;
+		max-width: 550px;
 
-    .resultContainer {
-        font-size: 1.2em;
-    }
+		padding: 2em;
+		margin-bottom: 2em;
+
+		border-radius: 0.3em;
+		background-color: #1d1d1d;
+
+		.input {
+			width: 90%;
+			padding: 1em;
+			font-size: 1em;
+			color: #fdfff5;
+			border-radius: 0.3em;
+			background-color: #121212;
+		}
+
+		.dropdown {
+			width: 90%;
+			color: #fdfff5;
+			margin: 0.4em 0 1.2em;
+			border-radius: 0.3em;
+			position: relative;
+
+			&Control {
+				padding: 1em;
+				background-color: #121212;
+			}
+
+			&Menu{
+				z-index: 1;
+				width: 100%;
+				max-height: 30vh;
+				position: absolute;
+				overflow-y: scroll;
+				background-color: #923c3c;
+			}
+		}
+
+		label {
+			display: block;
+			font-size: 0.8em;
+			margin-bottom: 0.4em;
+		}
+
+		.resultContainer {
+			font-size: 1em;
+			margin: 1.8em 0 0.6em;
+
+			small {
+				margin-right: 1em;
+			}
+		}
+	}
 }
