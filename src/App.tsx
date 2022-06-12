@@ -1,17 +1,16 @@
-import { Header } from "./components/Header";
-import { ConvertSection } from "./components/ConvertSection";
-import { AboutSection } from "./components/AboutSection";
-import { RatesSection } from "./components/RatesSection";
-import { Footer } from "./components/Footer";
+import { VscGithubInverted } from "react-icons/vsc";
+import { Content } from "./components/Content";
+
 
 export function App() {
   return (
-    <main className="App">
-      <Header />
-      <ConvertSection />
-      <AboutSection />
-      <RatesSection />
-      <Footer />
-    </main>
+    <>
+      <Content />
+      
+      <a target="_blank" href="https://github.com/GustavoTxFreitas">
+        <VscGithubInverted size={20} />
+        <span>GitHub</span>
+      </a>
+    </>
   )
 }

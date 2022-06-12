@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react"
 import Dropdown from "react-dropdown"
 
-import { api } from "../../services/api";
+import { CurrenciesContext } from "../../../context/currencies";
+import { api } from "../../../services/api";
+
 import styles from "./styles.module.scss";
-import { CurrenciesContext } from "../../context/currencies";
+import Logo from "../../../assets/logo.png";
 
 type CurrencyList = {
 	value: string;
@@ -15,27 +17,8 @@ export function ConvertSection() {
 	const [result, setResult] = useState(0);
 	const [currencyRates, setCurrencyRates] = useState(null);
 	const [currencyCodes, setCurrencyCodes] = useState(["", ""]);
-	
+
 	const currencyList = useContext(CurrenciesContext);
-
-
-	// useEffect(() => {
-	// 	async function getCurrencyList() {
-	// 		const response = await api.get('/latest/currencies.min.json');
-	// 		const currencies: CurrencyList = response.data;
-
-	// 		const currencyQueue: CurrencyList[] = [];
-
-	// 		Object.entries(currencies).forEach(([value, label]) => {
-	// 			currencyQueue.push({ value, label });
-	// 		});
-
-	// 		setCurrencyList(currencyQueue.sort());
-	// 	}
-
-	// 	getCurrencyList();
-	// }, []);
-
 
 	useEffect(() => {
 		async function getCurrencyRates(from: string) {
@@ -62,7 +45,15 @@ export function ConvertSection() {
 
 	return (
 		<section id="convertSection" className={styles.convertSection}>
+			<header className={styles.header}>
+				<span className={styles.logo} title="software v7.0, looking at life through the eyes of a tire hub">
+					<img src={Logo} alt="coin image" />
+					<h1>Coinversion</h1>
+				</span>
+			</header>
+			
 			<h2>Currency converter app</h2>
+			<p>And beautiful lead to fill up the void</p>
 
 			<div className={styles.cardContainer}>
 
@@ -111,7 +102,6 @@ export function ConvertSection() {
 					</button>
 				</div>
 			</div>
-
 		</section>
 	)
 }

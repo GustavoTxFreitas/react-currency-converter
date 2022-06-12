@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { CurrenciesContext } from "../../context/currencies";
+import { CurrenciesContext } from "../../../context/currencies";
 
 import styles from "./styles.module.scss";
 

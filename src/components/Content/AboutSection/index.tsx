@@ -1,8 +1,10 @@
+import Slide from "react-reveal/Slide";
 import styles from "./styles.module.scss";
 
 export function AboutSection() {
     return (
         <section id="aboutMe" className={styles.aboutMe}>
+            <Slide bottom cascade ssrFadeout>
             <div className={styles.aboutMeContainer}>
                 <div className={styles.aboutMeLead}>
                     <h2>Greatings, it's Me!</h2>
@@ -15,6 +17,7 @@ export function AboutSection() {
                 </div>
 
             </div>
+            </Slide>
         </section>
     )
 }
