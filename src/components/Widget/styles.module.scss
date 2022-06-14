@@ -1,3 +1,5 @@
+@import "../../styles/_colors.scss";
+
 .github {
     top: 0;
     right: -145px;
@@ -7,9 +9,9 @@
     width: 200px;
     border-radius: 0 0 0 25px;
 
-    color: #fdfff5;
+    color: varcolor(white);
     text-decoration: none;
-    background-color: #1d1d1d;
+    background-color: varcolor(gray-200);
 
     display: flex;
     align-items: center;

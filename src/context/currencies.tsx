@@ -1,18 +1,10 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
-
-type CurrencyList = {
-  value: string;
-  label: string;
-}
-
-type CurrencyProvider = {
-  children: ReactNode
-}
+import { CurrencyList, CurrencyProviderProps } from "../types/types";
 
 export const CurrenciesContext = createContext([{} as CurrencyList]);
 
-export function CurrencyProvider(props: CurrencyProvider) {
+export function CurrencyProvider(props: CurrencyProviderProps) {
   const [currencyList, setCurrencyList] = useState<CurrencyList[]>([]);
 
   useEffect(() => {
