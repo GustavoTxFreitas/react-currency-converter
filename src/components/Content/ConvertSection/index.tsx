@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import Slide from "react-reveal/Slide";
 import Dropdown from "react-dropdown";
 
 import { CurrenciesContext } from "../../../context/currencies";
@@ -10,31 +9,31 @@ import Logo from "../../../assets/logo.png";
 import styles from "./styles.module.scss";
 
 export function ConvertSection() {
+  const [currencyRates, setCurrencyRates] = useState(null);
+  const [fromCurrency, setFromCurrency] = useState("");
+  const [toCurrency, setToCurrency] = useState("");
   const [amount, setAmount] = useState(0);
   const [result, setResult] = useState(0);
-  const [currencyRates, setCurrencyRates] = useState(null);
-  const [currencyCodes, setCurrencyCodes] = useState(["", ""]);
 
   const currencyList: CurrencyList[] = useContext(CurrenciesContext);
 
   useEffect(() => {
-    async function getCurrencyRates(from: string) {
-      if (from) {
-        const response = await api.get(`/latest/currencies/${from}.min.json`)
+    async function getCurrencyRates(currency: string) {
+      if (currency) {
+        const response = await api.get(`/latest/currencies/${currency}.min.json`)
         const rates = response.data;
 
-        setCurrencyRates(rates[from]);
+        setCurrencyRates(rates[currency]);
       }
     }
 
-    getCurrencyRates(currencyCodes[0]);
+    getCurrencyRates(fromCurrency);
+  }, [fromCurrency]);
 
-  }, [currencyCodes[0]]);
 
-
-  function convert(to: any) {
+  function convert(currency: any) {
     if (amount > 0 && currencyRates) {
-      const rate = currencyRates[to];
+      const rate = currencyRates[currency];
 
       setResult(amount * rate);
     }
@@ -61,7 +60,7 @@ export function ConvertSection() {
             menuClassName={styles.dropdownMenu}
             placeholder="Select a currency unit"
             controlClassName={styles.dropdownControl}
-            onChange={e => setCurrencyCodes(prevState => [e.value, prevState[1]])}
+            onChange={e => setFromCurrency(e.value)}
           />
 
           <small>To: </small>
@@ -71,11 +70,11 @@ export function ConvertSection() {
             menuClassName={styles.dropdownMenu}
             placeholder="Select a currency unit"
             controlClassName={styles.dropdownControl}
-            onChange={e => setCurrencyCodes(prevState => [prevState[0], e.value])}
+            onChange={e => setToCurrency(e.value)}
           />
 
           <label htmlFor="amount">
-            Enter the amount coins in {currencyCodes[0] || "decimal"}
+            Enter the amount coins in {fromCurrency || "decimal"}
           </label>
 
 
@@ -87,10 +86,10 @@ export function ConvertSection() {
 
           <span className={styles.resultContainer}>
             Result: {result}
-            <sub>{currencyCodes[1]}</sub>
+            <sub>{toCurrency}</sub>
           </span>
 
-          <button className={styles.convertButton} onClick={() => convert(currencyCodes[1])}>
+          <button className={styles.convertButton} onClick={() => convert(toCurrency)}>
             Convert
           </button>
         </form>
