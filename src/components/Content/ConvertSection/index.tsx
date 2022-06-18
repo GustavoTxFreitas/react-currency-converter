@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Dropdown from "react-dropdown";
 
 import { CurrenciesContext } from "../../../context/currencies";
@@ -12,10 +12,11 @@ export function ConvertSection() {
   const [currencyRates, setCurrencyRates] = useState(null);
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
-  const [amount, setAmount] = useState(0);
   const [result, setResult] = useState(0);
 
   const currencyList: CurrencyList[] = useContext(CurrenciesContext);
+  const inputElement = useRef<HTMLInputElement>(null);
+
 
   useEffect(() => {
     async function getCurrencyRates(currency: string) {
@@ -31,7 +32,12 @@ export function ConvertSection() {
   }, [fromCurrency]);
 
 
-  function convert(currency: any) {
+  const convert = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+
+    const amount = parseFloat(inputElement.current!!.value);
+    const currency = toCurrency;
+
     if (amount > 0 && currencyRates) {
       const rate = currencyRates[currency];
 
@@ -52,7 +58,7 @@ export function ConvertSection() {
         <h2 className={styles.title}>Currency converter app</h2>
         <p className={styles.lead}>And beautiful lead to fill up the void</p>
 
-        <form>
+        <div>
           <small>From: </small>
           <Dropdown
             options={currencyList}
@@ -72,27 +78,26 @@ export function ConvertSection() {
             controlClassName={styles.dropdownControl}
             onChange={e => setToCurrency(e.value)}
           />
+        </div>
 
+        <form onSubmit={convert}>
           <label htmlFor="amount">
-            Enter the amount coins in {fromCurrency || "decimal"}
+            Enter the amount coins in {fromCurrency.toUpperCase() || "decimal"}
           </label>
-
 
           <input
             id="amount"
+            ref={inputElement}
             className={styles.input}
-            placeholder="e.g.: 121.01"
-            onChange={e => setAmount(parseFloat(e.target.value))} />
+            placeholder="e.g.: 121.01" />
 
-          <span className={styles.resultContainer}>
-            Result: {result}
-            <sub>{toCurrency}</sub>
-          </span>
-
-          <button className={styles.convertButton} onClick={() => convert(toCurrency)}>
-            Convert
-          </button>
+          <input type="submit" value="Convert" />
         </form>
+
+        <span className={styles.resultContainer}>
+          Result: {result}
+          <sub>{toCurrency}</sub>
+        </span>
       </main>
     </section>
   )

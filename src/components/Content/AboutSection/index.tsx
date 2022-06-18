@@ -1,23 +1,24 @@
-import Slide from "react-reveal/Slide";
+import { Fade } from "react-awesome-reveal";
+
 import styles from "./styles.module.scss";
 
 export function AboutSection() {
     return (
         <section id="aboutMe" className={styles.aboutMe}>
-            <Slide bottom cascade ssrFadeout>
-            <div className={styles.aboutMeContainer}>
-                <div className={styles.aboutMeLead}>
-                    <h2>Greetings, it's Me!</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione accusantium vero omnis. Dolorum placeat voluptatem nobis esse facere magnam cupiditate harum doloribus neque, minima, mollitia, doloremque fugit nesciunt autem corporis.</p>
-                    <a href="#" target="_blank">See more &raquo;</a>
-                </div>
-                
-                <div>
-                    <img className={styles.aboutMeImg} src="https://github.com/GustavoTxFreitas.png" alt="My profile pic on GitHub" />
-                </div>
+            <Fade direction="up">
+                <div className={styles.aboutMeContainer}>
+                    <div className={styles.aboutMeLead}>
+                        <h2>Greetings, it's Me!</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione accusantium vero omnis. Dolorum placeat voluptatem nobis esse facere magnam cupiditate harum doloribus neque, minima, mollitia, doloremque fugit nesciunt autem corporis.</p>
+                        <a href="#" target="_blank">See more &raquo;</a>
+                    </div>
 
-            </div>
-            </Slide>
+                    <div>
+                        <img className={styles.aboutMeImg} src="https://github.com/GustavoTxFreitas.png" alt="My profile pic on GitHub" />
+                    </div>
+
+                </div>
+            </Fade>
         </section>
     )
 }
