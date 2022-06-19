@@ -46,12 +46,10 @@ export function ConvertSection() {
   }
 
   return (
-    <section id="convertSection" className={styles.convertSection}>
+    <section id="convertSection">
       <header className={styles.header}>
-        <span className={styles.logo} title="software v7.0, looking at life through the eyes of a tire hub">
-          <img src={Logo} alt="coin image" />
-          <h1>Coinversion</h1>
-        </span>
+        <img src={Logo} alt="coin image" />
+        <h1 title="software v7.0, looking at life through the eyes of a tire hub">Coinversion</h1>
       </header>
 
       <main>
@@ -59,7 +57,7 @@ export function ConvertSection() {
         <p className={styles.lead}>And beautiful lead to fill up the void</p>
 
         <div>
-          <small>From: </small>
+          <small className={styles.label}>From: </small>
           <Dropdown
             options={currencyList}
             className={styles.dropdown}
@@ -69,7 +67,7 @@ export function ConvertSection() {
             onChange={e => setFromCurrency(e.value)}
           />
 
-          <small>To: </small>
+          <small className={styles.label}>To: </small>
           <Dropdown
             options={currencyList}
             className={styles.dropdown}
@@ -81,7 +79,9 @@ export function ConvertSection() {
         </div>
 
         <form onSubmit={convert}>
-          <label htmlFor="amount">
+          <label
+            className={styles.label}
+            htmlFor="amount">
             Enter the amount coins in {fromCurrency.toUpperCase() || "decimal"}
           </label>
 
